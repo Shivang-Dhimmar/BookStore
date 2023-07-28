@@ -7,18 +7,20 @@ import {Shivang} from './Shivang';
 import {Books} from './Books';
 import {BrowserRouter,NavLink,Route,Routes} from "react-router-dom";
 function App() {
+  const age=20;
   return (
     <div className="App">
-    <Header/>
-      <BrowserRouter>
+    <BrowserRouter>
+    <Header/> 
         <Routes>
           <Route path="/home" element={<Home/>}/>
-          <Route path='/shivang' element={<Shivang/>}/>
+          <Route path='/shivang' element={<Shivang age={age}/>}/>
           <Route path='/books' element={<Books/>}/>
         </Routes>
-      </BrowserRouter>
+      
       <h1><NavLink to="/books">Books</NavLink></h1>
     <Footer/>
+    </BrowserRouter>
     </div>
   );
 }
