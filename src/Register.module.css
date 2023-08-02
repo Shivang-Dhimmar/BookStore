@@ -1,0 +1,18 @@
+.row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+.error{
+    color:red;
+    margin-top: 1px;
+}
+.heading{
+    text-align: left;
+    margin-left: 230px;
+}
+.line{
+    margin-left: 230px;
+    margin-right: 100px;
+}
