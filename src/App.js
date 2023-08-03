@@ -8,8 +8,9 @@ import {Books} from './Books';
 import {Count} from './Count';
 import {BrowserRouter,NavLink,Route,Routes} from "react-router-dom";
 import { createTheme, ThemeProvider } from '@material-ui/core';
-import { blue, green, orange } from "@material-ui/core/colors";
+import { blue, green } from "@material-ui/core/colors";
 import {Register} from './Register';
+import {ToastContainer} from "react-toastify";
 
 // import appstyle from "./style";
 function App() {
@@ -25,6 +26,7 @@ function App() {
   );
   return (
     <div className="App wrapper">
+    <ToastContainer />
     <BrowserRouter>
     <ThemeProvider theme={theme}>                    
 
