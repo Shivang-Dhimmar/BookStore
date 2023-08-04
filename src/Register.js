@@ -4,9 +4,13 @@ import * as Yup from 'yup';
 import { TextField,FormControl,InputLabel,MenuItem,Select,Button } from '@material-ui/core';
 import {ErrorMessage} from './ErrorMessage';
 import classes from './Register.module.css';
-import authService from './service/auth.service';
-import { toast } from "react-toastify";
+import {authService} from './myService/authService';
+import {toast} from "react-toastify";
+import {useNavigate} from "react-router-dom";
+
+
 function Register(){
+    const navigate=useNavigate();
     const initialValue={
         firstName:"",
         lastName:"",
@@ -20,17 +24,21 @@ function Register(){
         lastName:Yup.string().required("Last Name is required").matches(/^[aA-zZ\s]+$/, "Enter valid last name"),
         email:Yup.string().required('Email is required').email("Enter valid email"),
         roleId:Yup.number().required('Role is required'),
-        password:Yup.string().required("Password is required").min(8,"password must be atleast 8 character long").max(12,"password must be atmost 12 charactes long"),
+        password:Yup.string().required("Password is required").min(5,"password must be atleast 5 character long").max(12,"password must be atmost 12 charactes long"),
         conpassword:Yup.string().required("Confirm Password is required").oneOf([Yup.ref("password"),null],"password and confirm password must be match")
     })
 
     const onSubmit = (data) => {
         delete data.conpassword;
-        authService.create(data).then((res) => {
-        //   navigate("/login");
-          toast.success("Successfully registered");
-        });
-        // alert("Registered");
+        const res=authService.create(data)
+        console.log(res);
+        if(res.key==="SUCCESS"){
+            toast.success("Registered Successfully")
+            navigate("/login");
+        }
+        else{
+            toast.error("Something Wrong");
+        }
     };
     
 

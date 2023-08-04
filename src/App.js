@@ -6,11 +6,13 @@ import {Home} from './Home';
 import {Shivang} from './Shivang';
 import {Books} from './Books';
 import {Count} from './Count';
+import {Login} from './Login';
 import {BrowserRouter,NavLink,Route,Routes} from "react-router-dom";
 import { createTheme, ThemeProvider } from '@material-ui/core';
 import { blue, green } from "@material-ui/core/colors";
 import {Register} from './Register';
 import {ToastContainer} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // import appstyle from "./style";
 function App() {
@@ -40,6 +42,7 @@ function App() {
           <Route path='/books' element={<Books/>}/>
           <Route path='/count' element={<Count/>}/>
           <Route path='/register' element={<Register/>}/>
+          <Route path='/login' element={<Login/>}/>
         </Routes>
       
       
