@@ -2,7 +2,7 @@
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { TextField,FormControl,InputLabel,MenuItem,Select,Button } from '@material-ui/core';
-import {ErrorMessage} from './ErrorMessage';
+import {ShowErrorMessage} from './ShowErrorMessage';
 import classes from './Register.module.css';
 import {authService} from './myService/authService';
 import {toast} from "react-toastify";
@@ -28,48 +28,59 @@ function Register(){
         conpassword:Yup.string().required("Confirm Password is required").oneOf([Yup.ref("password"),null],"password and confirm password must be match")
     })
 
-    const onSubmit = (data) => {
+    const onSubmit =async (data) => {
         delete data.conpassword;
-        const res=authService.create(data)
-        console.log(res);
-        if(res.key==="SUCCESS"){
-            toast.success("Registered Successfully")
-            navigate("/login");
+        try{
+            const key=await authService.create(data);
+            console.log(key);
+            if(key==="SUCCESS"){
+                navigate("./../login");
+            }
         }
-        else{
-            toast.error("Something Wrong");
+        catch(error){
+            toast.error("There is something wrong");
         }
+        // console.log(res);
+        // if(res.key==="SUCCESS"){
+        //     toast.success("Registered Successfully")
+        //     navigate("/login");
+        // }
+        // else{
+        //     toast.error("Something Wrong");
+        // }
     };
     
 
     return(
-        <>
+        <div className={classes.formWrapper}>
             <Formik initialValues={initialValue} validationSchema={validationSchema} onSubmit={onSubmit}>
             {
-                ({values,touched,errors,handleChange,handleSubmit})=>{
+                ({values,touched,errors,handleBlur,handleChange,handleSubmit})=>{
 
                 return(
+                    
+
                     <form onSubmit={handleSubmit}>
                         <h2 className={classes.heading}>Personal Information</h2>
-                        <hr className={classes.line}/>
+                        <hr/>
                         <p className={classes.heading}>Please enter the following details to create your account</p>
                         <div className={classes.row}>
-                            <div>
-                                <TextField label="First Name*" variant="outlined" type='text' name='firstName' onChange={handleChange} />
-                                <ErrorMessage error={errors.firstName} touch={touched.firstName}/>
+                            <div className={classes.fieldWrapper}>
+                                <TextField className={classes.field} label="First Name*" variant="outlined" type='text' name='firstName' onBlur={handleBlur} onChange={handleChange} />
+                                <ShowErrorMessage name='firstName' error={errors.firstName} click={touched.firstName}/>
                             </div>
-                            <div>
-                                <TextField label="Last Name*" variant="outlined" type='text' name='lastName' onChange={handleChange} />
-                                <ErrorMessage error={errors.lastName} touch={touched.lastName}/>
+                            <div className={classes.fieldWrapper}>
+                                <TextField className={classes.field} label="Last Name*" variant="outlined" type='text' name='lastName' onBlur={handleBlur} onChange={handleChange} />
+                                <ShowErrorMessage error={errors.lastName} click={touched.lastName}/>
                             </div>
                         </div>
                         <div className={classes.row}>
-                            <div>
-                                <TextField label="Email*" variant="outlined" type='text' name='email' onChange={handleChange} />
-                                <ErrorMessage error={errors.email} touch={touched.email}/>
+                            <div className={classes.fieldWrapper}>
+                                <TextField className={classes.field} label="Email*" variant="outlined" type='text' name='email' onBlur={handleBlur} onChange={handleChange} />
+                                <ShowErrorMessage error={errors.email} click={touched.email}/>
                             </div>
-                            <div>
-                            <FormControl variant="outlined">
+                            <div className={classes.fieldWrapper}>
+                            <FormControl className={classes.field} variant="outlined" onBlur={handleBlur}>
                                 <InputLabel id="demo-simple-select-outlined-label">Roles*</InputLabel>
                                 <Select
                                 labelId="demo-simple-select-outlined-label"
@@ -82,19 +93,19 @@ function Register(){
                                 <MenuItem value={3}>Seller</MenuItem>
                                 </Select>
                             </FormControl>
-                                <ErrorMessage error={errors.roleId} touch={touched.roleId}/>
+                                <ShowErrorMessage error={errors.roleId} click={touched.roleId}/>
                             </div>
                         </div>
                         <h2 className={classes.heading}>Login Information</h2>
-                        <hr className={classes.line}/>
+                        <hr/>
                         <div className={classes.row}>
-                            <div>
-                                <TextField label="Password*" variant="outlined" type='password' name='password' onChange={handleChange} />
-                                <ErrorMessage error={errors.password} touch={touched.password}/>
+                            <div className={classes.fieldWrapper}>
+                                <TextField className={classes.field} label="Password*" variant="outlined" type='password' name='password' onBlur={handleBlur} onChange={handleChange} />
+                                <ShowErrorMessage  error={errors.password} click={touched.password}/>
                             </div>
-                            <div>
-                                <TextField label="Confirm Password*" variant="outlined" type='password' name='conpassword' onChange={handleChange} />
-                                <ErrorMessage error={errors.conpassword} touch={touched.conpassword}/>
+                            <div className={classes.fieldWrapper}>
+                                <TextField className={classes.field} label="Confirm Password*" variant="outlined" type='password' name='conpassword' onBlur={handleBlur} onChange={handleChange} />
+                                <ShowErrorMessage error={errors.conpassword} click={touched.conpassword}/>
                             </div>
                         </div>
                         <Button color='primary' variant="contained"  size="midium" type="submit">Submit</Button>
@@ -103,7 +114,7 @@ function Register(){
                 }
             }
             </Formik>
-        </>
+        </div>
     );
 }
 

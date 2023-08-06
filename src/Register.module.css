@@ -1,33 +1,74 @@
 .row{
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
 }
 .error{
     color:red;
-    margin-top: 1px;
+    height:3vh;
+    text-align: left;
+    margin-top:2vh;
 }
 .heading{
     text-align: left;
-    margin-left: 230px;
-}
-.line{
-    margin-left: 230px;
-    margin-right: 100px;
 }
 
-.container{
+.lonincontainer{
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+    justify-content: space-between;
+    align-items: flex-start;
 }
-.heading1{
-    font-size: 20px;
-}
-.line1{
-    width:30vw;
-    padding-left: 0px;
+.formWrapper{
     margin-left: 5vw;
+    margin-right: 5vw;
+}
+.loginheading1{
+    font-size: 20px;
+    font-weight: bold;
+    text-align:left ;
+}
+/* .field{
+    width: 40vw;
+    height: 8vh;
+    
+} */
+.loginpagehead{
+    border-bottom: 2px solid #006affad;
+    text-align: center;
+    margin-left: 25vw;
+    margin-right: 25vw;
+}
+.loginformcontainer{
+    margin-left: 10vw;
+    margin-right: 10vw;
+}
+.logincolumn{
+    margin-left: 0px;
+    text-align: left;
+}
+.fieldWrapper{
+    width: 40vw;
+    height: 13vh;
+}
+.field{
+    width: 40vw;
+    height: 7vh;
+    
+}
+.loginline1{
+    width:30vw;
+    text-align: left;
+    padding-left: 0px;
+    margin-left: 0px;
+}
+.loginfield{
+    text-align: left;
+    width:35vw;
+    height:12vh;
+}
+.loginfield2{
+    width: 35vw;
+    height:7vh;
 }

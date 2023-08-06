@@ -3,7 +3,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { TextField,Button } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
-import {ErrorMessage} from './ErrorMessage';
+import {ShowErrorMessage} from './ShowErrorMessage';
 import classes from './Register.module.css';
 import {authService} from './myService/authService';
 import {toast} from "react-toastify";
@@ -19,33 +19,28 @@ function Login(){
     })
 
     const onSubmit = (data) => {
-        authService.login(data).then((res)=>{
-            console.log("hi");
-            if(res.key==="SUCCESS"){
-                toast.success("Successfully login");
-                console.log("hiinner");
-                
-            }  
-        }).catch((error)=>{
+        try{
+            authService.login(data);
+        }
+        catch(error){
             toast.error(error);
-        });
-       
+        };  
     };
     
 
     return(
-        <>
+        <div className={classes.loginformcontainer}>
             <Formik initialValues={initialValue} validationSchema={validationSchema} onSubmit={onSubmit}>
             {
-                ({values,touched,errors,handleChange,handleSubmit})=>{
+                ({values,touched,errors,handleBlur,handleChange,handleSubmit})=>{
 
                 return(
                     <form onSubmit={handleSubmit}>
-                        <h2>Login or Create an Account</h2>
-                        <div className={classes.container}>
-                            <div>
-                                <p className={classes.heading1}>New Customer</p>
-                                <hr className={classes.line1}/>
+                        <h2 className={classes.loginpagehead}>Login or Create an Account</h2>
+                        <div className={classes.lonincontainer}>
+                            <div className={classes.logincolumn}>
+                                <p className={classes.loginheading1}>New Customer</p>
+                                <hr className={classes.loginline1}/>
                                 <p>
                                     Registration is free and easy
                                     <ul>
@@ -56,17 +51,17 @@ function Login(){
                                 </p>
                                 <NavLink to='/register'><Button color='primary' variant="contained"  size="midium">Create an Account</Button></NavLink> 
                             </div>
-                            <div>
-                                <p className={classes.heading1}>Registered Customer</p>
-                                <hr className={classes.line1}/>
+                            <div className={classes.logincolumn}>
+                                <p className={classes.loginheading1}>Registered Customer</p>
+                                <hr className={classes.loginline1}/>
                                 <p>If you have an account with us,please log in</p>
-                                <div>
-                                    <TextField label="Email*" variant="outlined" type='text' name='email' onChange={handleChange} />
-                                    <ErrorMessage error={errors.email} touch={touched.email}/>
+                                <div className={classes.loginfield}>
+                                    <TextField label="Email*" variant="outlined" type='text' name='email' className={classes.loginfield2} onChange={handleChange} onBlur={handleBlur}/>
+                                    <ShowErrorMessage error={errors.email} touch={touched.email}/>
                                 </div>
-                                <div>
-                                    <TextField label="Password*" variant="outlined" type='password' name='password' onChange={handleChange} />
-                                    <ErrorMessage error={errors.password} touch={touched.password}/>
+                                <div className={classes.loginfield}>
+                                    <TextField label="Password*" variant="outlined" type='password' name='password' className={classes.loginfield2} onChange={handleChange} onBlur={handleBlur} />
+                                    <ShowErrorMessage error={errors.password} touch={touched.password}/>
                                 </div>
                                 <Button color='primary' variant="contained"  size="midium" type="submit">Submit</Button>
                             </div>
@@ -76,7 +71,7 @@ function Login(){
                 }
             }
             </Formik>
-        </>
+        </div>
     );
 }
 
