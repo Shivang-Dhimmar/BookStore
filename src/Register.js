@@ -62,7 +62,7 @@ function Register(){
 
                     <form onSubmit={handleSubmit}>
                         <h2 className={classes.heading}>Personal Information</h2>
-                        <hr/>
+                        <hr className={classes.loginline}/>
                         <p className={classes.heading}>Please enter the following details to create your account</p>
                         <div className={classes.row}>
                             <div className={classes.fieldWrapper}>
@@ -97,7 +97,7 @@ function Register(){
                             </div>
                         </div>
                         <h2 className={classes.heading}>Login Information</h2>
-                        <hr/>
+                        <hr className={classes.loginline}/>
                         <div className={classes.row}>
                             <div className={classes.fieldWrapper}>
                                 <TextField className={classes.field} label="Password*" variant="outlined" type='password' name='password' onBlur={handleBlur} onChange={handleChange} />
@@ -108,7 +108,7 @@ function Register(){
                                 <ShowErrorMessage error={errors.conpassword} click={touched.conpassword}/>
                             </div>
                         </div>
-                        <Button color='primary' variant="contained"  size="midium" type="submit">Submit</Button>
+                        <Button color='primary' variant="contained"  size="medium" type="submit">Submit</Button>
                     </form>
                 );
                 }

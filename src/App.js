@@ -7,7 +7,7 @@ import {Shivang} from './Shivang';
 import {Books} from './Books';
 import {Count} from './Count';
 import {Login} from './Login';
-import {BrowserRouter,NavLink,Route,Routes} from "react-router-dom";
+import {BrowserRouter,Route,Routes} from "react-router-dom";
 import { createTheme, ThemeProvider } from '@material-ui/core';
 import { blue, green } from "@material-ui/core/colors";
 import {Register} from './Register';
@@ -33,9 +33,9 @@ function App() {
     <ThemeProvider theme={theme}>                    
 
     <Header/> 
-      <NavLink to="/books" className='links'>Books</NavLink>
+      {/* <NavLink to="/books" className='links'>Books</NavLink>
       <NavLink to="/count" className='links'>Count</NavLink>
-      <NavLink to='/register' classeName='links'>Register</NavLink>
+      <NavLink to='/register' classeName='links'>Register</NavLink> */}
         <Routes>
           <Route path="/home" element={<Home/>}/>
           <Route path='/shivang' element={<Shivang age={age}/>}/>

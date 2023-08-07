@@ -35,7 +35,7 @@
     
 } */
 .loginpagehead{
-    border-bottom: 2px solid #006affad;
+    border-bottom: 0.5vh solid #006affad;
     text-align: center;
     margin-left: 25vw;
     margin-right: 25vw;
@@ -57,11 +57,19 @@
     height: 7vh;
     
 }
+.loginline{
+    background-color: #006affad;
+    color:#006affad;
+    height:0.4vh;
+}
 .loginline1{
     width:30vw;
     text-align: left;
     padding-left: 0px;
     margin-left: 0px;
+    background-color: #006affad;
+    color:#006affad;
+    height:0.4vh;
 }
 .loginfield{
     text-align: left;
@@ -71,4 +79,83 @@
 .loginfield2{
     width: 35vw;
     height:7vh;
+}
+.footerWrapper{
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+.footerlogo{
+    margin-top:5vh;
+    width:18vw;
+}
+.headerWrapper{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    margin:4vh 5vw 4vh 5vw;
+}
+.headerLogo{
+    width:18vw;
+}
+.navWrapper{
+    margin-left:0vw;
+
+}
+.navlist{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+.cart{
+    display: flex;
+    flex-direction: row;
+    margin-right: 5vw;
+    border:1px solid #006affad;
+    padding-right: 1vw;
+}
+.cartLogo{
+    width: 3vw;
+    height: auto;
+}
+.globalSearchWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.search{
+    width:50vw;
+}
+.searchButton{
+    margin-left: 2vw;
+    width:15vw;
+    height: 7vh;
+}
+.searchResultWrapper{
+    width:50vw;
+    margin-left:18vw;
+}
+.productListing{
+    text-align: center;   
+}
+.noProduct{
+    text-align: left;
+}
+.resultSet{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.leftCol{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.rightCol{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
