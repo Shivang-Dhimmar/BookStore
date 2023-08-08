@@ -13,7 +13,7 @@ import { blue, green } from "@material-ui/core/colors";
 import {Register} from './Register';
 import {ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import {AuthWrapper} from "./context";
 // import appstyle from "./style";
 function App() {
   const age=20;
@@ -30,6 +30,7 @@ function App() {
     <div className="App wrapper">
     <ToastContainer />
     <BrowserRouter>
+    <AuthWrapper>
     <ThemeProvider theme={theme}>                    
 
     <Header/> 
@@ -50,6 +51,7 @@ function App() {
       {/* <TextField id="outlined-basic" label="Name" variant="outlined" classes={appStyle.textboxStyle}/> */}
     <Footer/>
     </ThemeProvider>
+    </AuthWrapper>
     </BrowserRouter>
     </div>
   );

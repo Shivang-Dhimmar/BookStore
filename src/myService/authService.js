@@ -44,12 +44,16 @@ const login=async(req)=>{
             body:JSON.stringify(req)
         });
         const data2=await response2.json();
-        if(data2.key==="SUCCESS"){
-            toast.success("Logedin Successfully");
-        }
-        else{
-            toast.error("There is something wrong");
-        }
+        // if(data2.key==="SUCCESS"){
+        //     toast.success("Logedin Successfully");
+        // }
+        // else if(data2.key==="UNAUTHORIZED"){
+        //     toast.error("Wrong Credentials");
+        // }
+        // else{
+        //     toast.error("There is Something Wronng");
+        // }
+        return data2;
     }
     catch(error){
         toast.error(error);

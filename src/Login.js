@@ -7,20 +7,39 @@ import {ShowErrorMessage} from './ShowErrorMessage';
 import classes from './Register.module.css';
 import {authService} from './myService/authService';
 import {toast} from "react-toastify";
+import {useAuthContext} from "./context";
+import {useNavigate} from "react-router-dom";
 
 function Login(){
     const initialValue={
         email:"",
         password:""
     }
+    const navigate=useNavigate();
     const validationSchema=Yup.object().shape({
         email:Yup.string().required('Email is required').email("Enter valid email"),
         password:Yup.string().required("Password is required").min(5,"password must be atleast 5 character long").max(12,"password must be atmost 12 charactes long"),
     })
+    const userContext=useAuthContext();
 
-    const onSubmit = (data) => {
+    const onSubmit =async (data) => {
         try{
-            authService.login(data);
+            const response=await authService.login(data);
+            if(response.key==="SUCCESS"){
+                toast.success("Logedin Successfully");
+                delete response.result._id;
+                delete response.result.__v;
+                userContext.setUser(response.result);
+                navigate("./../books");
+                userContext.setHasLogedIn(true);
+            }
+            else if(response.key==="UNAUTHORIZED"){
+                toast.error("Wrong Credentials");
+            }
+            else{
+                toast.error("There is Something Wronng");
+            }
+            
         }
         catch(error){
             toast.error(error);
@@ -57,13 +76,13 @@ function Login(){
                                 <p>If you have an account with us,please log in</p>
                                 <div className={classes.loginfield}>
                                     <TextField label="Email*" variant="outlined" type='text' name='email' className={classes.loginfield2} onChange={handleChange} onBlur={handleBlur}/>
-                                    <ShowErrorMessage error={errors.email} touch={touched.email}/>
+                                    <ShowErrorMessage error={errors.email} click={touched.email}/>
                                 </div>
                                 <div className={classes.loginfield}>
                                     <TextField label="Password*" variant="outlined" type='password' name='password' className={classes.loginfield2} onChange={handleChange} onBlur={handleBlur} />
-                                    <ShowErrorMessage error={errors.password} touch={touched.password}/>
+                                    <ShowErrorMessage error={errors.password} click={touched.password}/>
                                 </div>
-                                <Button color='primary' variant="contained"  size="midium" type="submit">Submit</Button>
+                                <Button color='primary' variant="contained"  size="medium" type="submit">Submit</Button>
                             </div>
                         </div>
                     </form>

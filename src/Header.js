@@ -10,13 +10,18 @@ import {global_search} from "./myService/bookService";
 import {Button,TextField} from '@material-ui/core';
 import {toast} from "react-toastify";
 import SearchIcon from "@material-ui/icons/Search";
+import {useAuthContext} from "./context";
 
 function Header(){
     const [search,setSearch]=useState("");
     const [booklist,setBooklist]=useState([]);
     const [searchResult,setSearchResult]=useState(false);
+    const userContext=useAuthContext();
     const items=useMemo(()=>{
-        return shared.NavigationItems;
+        return {
+            NavigationItems:shared.NavigationItems,
+            hasAccess:shared.hasAccess,
+        };
     },[]);
     function change(e){
         setSearch(e.target.value);
@@ -47,18 +52,35 @@ function Header(){
             </div>
             <div className={classes.navWrapper}>
                 <List className={classes.navlist}>
-                    <ListItem>
-                        <NavLink to="./login">Login</NavLink>
-                    </ListItem>
-                    <ListItem>
-                        <NavLink to="./register">Register</NavLink>
-                    </ListItem>
-                    {
-                        items.map((item,index)=>(
-                        <ListItem key={index}>
-                            <NavLink to={item.route} title={item.name}>{item.name}</NavLink>
+                    {!userContext.hasLogedIn &&(   
+                        <ListItem>
+                            <NavLink to="./login">Login</NavLink>
                         </ListItem>
+                    )
+                    }
+                    {!userContext.hasLogedIn &&(
+
+                        <ListItem>
+                            <NavLink to="./register">Register</NavLink>
+                        </ListItem>
+                    )
+                    }
+                    {
+                        items.NavigationItems.map((item,index)=>(
+                            
+                                items.hasAccess(item.route,userContext.userValues)&&(
+                                    <ListItem key={index}>
+                                        <NavLink to={item.route} title={item.name}>{item.name}</NavLink>
+                                    </ListItem>
+                                )
+                            
                         ))
+                    }
+                    {userContext.hasLogedIn && (
+                        <ListItem>
+                            <Button  color='primary' variant="text"  size="medium" onClick={userContext.signOut}>LogOut</Button>
+                        </ListItem>
+                    )
                     }
                     <ListItem button >
                         <NavLink to="/cart" title='cart-link' className={classes.cart}>

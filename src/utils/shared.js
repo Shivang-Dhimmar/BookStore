@@ -60,11 +60,11 @@ const hasAccess = (pathname, user) => {
   );
   if (navItem) {
     return (
-      !navItem.access ||
-      !!(navItem.access && navItem.access.includes(user.roleId))
+      !!(navItem.access.includes(user.roleId))
+      // !navItem.access ||
+      // !!(navItem.access && navItem.access.includes(user.roleId))
     );
   }
-  return true;
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
