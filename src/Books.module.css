@@ -1,0 +1,38 @@
+.wrapper{
+    margin-top: 2vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 2vh;
+}
+.headingWrapper{
+    text-align: center;
+}
+.heading{
+    border-bottom: 2px solid #006affad;
+    margin-left: 35vw;
+    margin-right: 35vw;
+}
+.search{
+    display: flex;
+    flex-direction: row;
+    margin-right: 10vw;
+    justify-content: flex-end;
+    align-items: center;
+    height:8vh;
+}
+.bookSearch{
+    margin-right: 3vw;
+}
+.box{
+    width:30vw;
+    height: 8vh;
+}
+.searchButton{
+    display:grid;
+    place-items: center;
+}
+.btn{
+    width: 10vw;
+    height: 7vh;
+}

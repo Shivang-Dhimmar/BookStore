@@ -25,4 +25,57 @@ const global_search=async(req)=>{
     }   
 }
 
+const getPagenatedBookList=async()=>{
+    try{
+
+        let response=await  fetch("http://localhost:5000/api/book?pageSize=2&pageIndex=1",{
+            headers:{
+                "Content-Type":"Application/json",
+                "Accept":"Application/json",
+            },
+        });
+        response=await response.json();
+        return response;
+    }
+    catch(e){
+        toast.error(e);
+    }
+}
+
+const addBook=async(req)=>{
+    try{
+        const response=await fetch("http://localhost:5000/api/book",{
+            method:"POST",
+            headers:{
+                "Content-Type":"Application/json",
+                "Accept":"Application/json",
+            },
+            body:JSON.stringify(req)
+        });
+        const response2=await response.json();
+        return response2;
+    }
+    catch(error){
+        toast.error(error);
+    }
+}
+const getBookByID=async(id)=>{
+    try{
+
+        const response=await fetch(`http://localhost:5000/api/book/byId?id=${id}`,{
+            headers:{
+                "Content-Type":"Application/json",
+                "Accept":"Application/json",
+            },
+        });
+        const response2=await response.json();
+        return response2;
+    }
+    catch(error){
+        toast.error(error);
+    }
+}
+export {getBookByID};
 export {global_search};
+export {getPagenatedBookList};
+export {addBook};

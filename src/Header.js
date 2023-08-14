@@ -11,8 +11,10 @@ import {Button,TextField} from '@material-ui/core';
 import {toast} from "react-toastify";
 import SearchIcon from "@material-ui/icons/Search";
 import {useAuthContext} from "./context";
+import {RoutePaths} from './utils/enum';
 
 function Header(){
+    
     const [search,setSearch]=useState("");
     const [booklist,setBooklist]=useState([]);
     const [searchResult,setSearchResult]=useState(false);
@@ -42,6 +44,7 @@ function Header(){
             toast.error("There is something wrong in searching.");
         }
     }
+    
     return(
         <div>
         <div className={classes.headerWrapper}>
@@ -54,28 +57,33 @@ function Header(){
                 <List className={classes.navlist}>
                     {!userContext.hasLogedIn &&(   
                         <ListItem>
-                            <NavLink to="./login">Login</NavLink>
+                            <NavLink to={RoutePaths.Login}>
+                                <Button  color='primary' variant="text"  size="medium" title="login">Login</Button>
+                            </NavLink>
                         </ListItem>
                     )
                     }
                     {!userContext.hasLogedIn &&(
 
                         <ListItem>
-                            <NavLink to="./register">Register</NavLink>
+                            <NavLink to={RoutePaths.Register}>
+                                <Button  color='primary' variant="text"  size="medium" title="register">Register</Button>
+                            </NavLink>
                         </ListItem>
                     )
                     }
                     {
                         items.NavigationItems.map((item,index)=>(
-                            
                                 items.hasAccess(item.route,userContext.userValues)&&(
                                     <ListItem key={index}>
-                                        <NavLink to={item.route} title={item.name}>{item.name}</NavLink>
+                                        <NavLink to={item.route} title={item.name}>
+                                            <Button  color='primary' variant="text"  size="medium" title={item.name}>{item.name}</Button>
+                                        </NavLink>
                                     </ListItem>
                                 )
-                            
                         ))
                     }
+
                     {userContext.hasLogedIn && (
                         <ListItem>
                             <Button  color='primary' variant="text"  size="medium" onClick={userContext.signOut}>LogOut</Button>

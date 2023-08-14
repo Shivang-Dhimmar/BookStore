@@ -1,0 +1,58 @@
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* align-items: center; */
+    margin-top:4h;
+    margin-bottom: 4vh;
+}
+.heading{
+    border-bottom: 3px solid #006affad;
+}
+.form{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* align-items: center; */
+    margin-top: 5vh;
+
+}
+.firstRowWrapper{
+    display: flex;
+    flex-direction: row;
+    margin-left: 10vw;
+    margin-right: 10vw;
+    margin-top: 3vh;
+    justify-content: space-between;
+    align-items: center;
+}
+.imageButton{
+    width: 30vw;
+}
+.image{
+    width: 20vw;
+}
+.description{
+    margin-left: 10vw;
+    margin-right: 10vw;
+    text-align: left;
+}
+.descriptionField{
+    width: 75vw;
+    
+}
+.buttonWrapper{
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 10vw;
+    margin-right: 10vw;
+    margin-top: 2vh;
+}
+.fields{
+    width:35vw;
+}
+.cancel{
+    margin-left:5vw;
+}

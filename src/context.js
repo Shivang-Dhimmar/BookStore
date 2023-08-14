@@ -1,7 +1,7 @@
 import { createContext,useState,useContext,useEffect } from "react";
 import Shared from "./utils/shared";
 import {RoutePaths} from './utils/enum';
-import {useNavigate, useLocation, Route} from "react-router-dom";
+import {useNavigate, useLocation} from "react-router-dom";
 
 
 const intialUserValue={
@@ -33,6 +33,7 @@ export const AuthWrapper=({children})=>{
         console.log(userdata);
         localStorage.setItem(Shared.LocalStorageKeys.USER, JSON.stringify(userdata));
         _setUserValues(userdata);
+        // setHasLogedIn(true);
     };
     const signOut = () => {
         _setUserValues(intialUserValue);
@@ -45,24 +46,30 @@ export const AuthWrapper=({children})=>{
     useEffect(() => {
         const storedUserValue =JSON.parse(localStorage.getItem(Shared.LocalStorageKeys.USER)) ||
           intialUserValue;
+          // console.log(pathname===RoutePaths.Register);
+          console.log(pathname);
         // if the item doesn't exist, return null
-        if (!storedUserValue.id) {
+        if (!storedUserValue.id && ((pathname!== RoutePaths.Register) && (pathname!== RoutePaths.Login))) {
+          
           navigate(`${RoutePaths.Login}`);
         }
         else{
           setHasLogedIn(true);
+          _setUserValues(storedUserValue);
         }
-        _setUserValues(storedUserValue);
-        console.log(userValues);
+        console.log(storedUserValue);
       }, []);
 
       useEffect(() => {
+        // console.log(pathname===RoutePaths.Register);
+        console.log(userValues);
+        console.log(pathname);
         if ((pathname === RoutePaths.Login ||pathname === RoutePaths.Register ) && userValues.id) {
-          navigate(RoutePaths.Book);
+          navigate(RoutePaths.BookListing);
         }
-        else if (((pathname !== RoutePaths.Login) || (pathname !== RoutePaths.Register)) && (!userValues.id)) {
-          navigate(`${RoutePaths.Login}`);
-        }
+        // else if (((pathname !== RoutePaths.Login) || (pathname !== RoutePaths.Register)) && (!userValues.id)) {
+        //   navigate(RoutePaths.Login);
+        // }
         // if (!user.id) {
         //   return;
         // }
@@ -73,7 +80,7 @@ export const AuthWrapper=({children})=>{
         //   return;
         // }
         // setAppInitialize(true);
-      }, [navigate,pathname, userValues]);
+      }, [pathname, userValues]);
         
     let value = {
         userValues,

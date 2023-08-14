@@ -6,6 +6,7 @@ import {ShowErrorMessage} from './ShowErrorMessage';
 import classes from './Register.module.css';
 import {authService} from './myService/authService';
 import {toast} from "react-toastify";
+import {RoutePaths} from './utils/enum';
 import {useNavigate} from "react-router-dom";
 
 
@@ -34,7 +35,7 @@ function Register(){
             const key=await authService.create(data);
             console.log(key);
             if(key==="SUCCESS"){
-                navigate("./../login");
+                navigate(RoutePaths.Login);
             }
         }
         catch(error){

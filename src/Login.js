@@ -8,6 +8,7 @@ import classes from './Register.module.css';
 import {authService} from './myService/authService';
 import {toast} from "react-toastify";
 import {useAuthContext} from "./context";
+import {RoutePaths} from './utils/enum';
 import {useNavigate} from "react-router-dom";
 
 function Login(){
@@ -30,7 +31,7 @@ function Login(){
                 delete response.result._id;
                 delete response.result.__v;
                 userContext.setUser(response.result);
-                navigate("./../books");
+                navigate(RoutePaths.BookListing);
                 userContext.setHasLogedIn(true);
             }
             else if(response.key==="UNAUTHORIZED"){
