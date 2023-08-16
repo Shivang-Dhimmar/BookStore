@@ -25,10 +25,19 @@ const global_search=async(req)=>{
     }   
 }
 
-const getPagenatedBookList=async()=>{
-    try{
+const getPagenatedBookList=async(filter)=>{
 
-        let response=await  fetch("http://localhost:5000/api/book?pageSize=2&pageIndex=1",{
+    try{
+        let URL="";
+        if(filter.keyword){
+            URL=`http://localhost:5000/api/book?pageSize=${filter.pageSize}&pageIndex=${filter.pageIndex}&keyword=${filter.keyword}`;
+        }
+        else{
+            URL=`http://localhost:5000/api/book?pageSize=${filter.pageSize}&pageIndex=${filter.pageIndex}`;
+        }
+        // alert(URL);
+        // alert(filter);
+        let response=await  fetch(`${URL}`,{
             headers:{
                 "Content-Type":"Application/json",
                 "Accept":"Application/json",
@@ -59,6 +68,23 @@ const addBook=async(req)=>{
         toast.error(error);
     }
 }
+const updateBook=async(req)=>{
+    try{
+        const response=await fetch("http://localhost:5000/api/book",{
+            method:"put",
+            headers:{
+                "Content-Type":"Application/json",
+                "Accept":"Application/json",
+            },
+            body:JSON.stringify(req)
+        });
+        const response2=await response.json();
+        return response2;
+    }
+    catch(error){
+        toast.error(error);
+    }
+}
 const getBookByID=async(id)=>{
     try{
 
@@ -75,7 +101,27 @@ const getBookByID=async(id)=>{
         toast.error(error);
     }
 }
+const deleteBook=async(id)=>{
+    try{
+
+        const response=await fetch(`http://localhost:5000/api/book?id=${id}`,{
+            headers:{
+                "Content-Type":"Application/json",
+                "Accept":"Application/json",
+            },
+            method:"DELETE"
+        });
+        const response2=await response.json();
+        return response2;
+    }
+    catch(error){
+        toast.error(error);
+    }
+}
+
 export {getBookByID};
 export {global_search};
 export {getPagenatedBookList};
 export {addBook};
+export {deleteBook};
+export {updateBook};

@@ -7,7 +7,7 @@ import * as Yup from "yup";
 import { TextField,FormControl,InputLabel,MenuItem,Select,Button,Input } from '@material-ui/core';
 import {ShowErrorMessage} from './ShowErrorMessage';
 import {getAllCategory} from './myService/categoryService';
-import {addBook,getBookByID} from './myService/bookService';
+import {addBook,getBookByID,updateBook} from './myService/bookService';
 import {toast} from "react-toastify";
 import {RoutePaths} from './utils/enum';
 function EditBook(){
@@ -98,16 +98,32 @@ function EditBook(){
     };
     const onSubmit = async (values) => {
       try{
-        const response=await addBook(values);
-        if(response.key==="SUCCESS"){
-          toast.success("Book added Successfully.");
-          navigate(RoutePaths.Book);
-        }
-        else if(response.code===400){
-          toast.error("Bad Request");
+        if(!initialValueState.id){
+
+          const response=await addBook(values);
+          if(response.key==="SUCCESS"){
+            toast.success("Book added Successfully.");
+            navigate(RoutePaths.Book);
+          }
+          else if(response.code===400){
+            toast.error("Bad Request");
+          }
+          else{
+            toast.error("Threre is something wrong");
+          }
         }
         else{
-          toast.error("Threre is something wrong");
+          const response=await updateBook(values);
+          if(response.key==="SUCCESS"){
+            toast.success("Book updated Successfully.");
+            navigate(RoutePaths.Book);
+          }
+          else if(response.code===400){
+            toast.error("Bad Request");
+          }
+          else{
+            toast.error("Threre is something wrong");
+          }
         }
       }
       catch(error){
@@ -270,7 +286,7 @@ function EditBook(){
                   className={classes.save}
                   variant="contained"
                   type="submit"
-                  color="primary"
+                  color="secondary"
                   // disableElevation
                 >
                   Save
@@ -279,7 +295,7 @@ function EditBook(){
                   className={classes.cancel}
                   variant="contained"
                   type="button"
-                  color="secondary"
+                  color="error"
                   // disableElevation
                   onClick={() => {
                     navigate(RoutePaths.Book);

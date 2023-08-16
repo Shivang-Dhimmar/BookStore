@@ -36,3 +36,21 @@
     width: 10vw;
     height: 7vh;
 }
+.table{
+    margin-left: 5vw;
+    margin-right: 5vw;
+    margin-top: 5vh;
+}
+.headingRow{
+    background-color: rgba(128, 128, 128, 0.114);
+}
+.headingRowData{
+    font-weight: bolder;
+    font-size: large;
+}
+.noData{
+    color: red;
+}
+.deleteBook{
+    margin-left: 3vw;
+}

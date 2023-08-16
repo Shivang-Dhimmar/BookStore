@@ -4,7 +4,7 @@ import {Header} from './Header';
 import {Footer} from './Footer';
 import {BrowserRouter} from "react-router-dom";
 import { createTheme, ThemeProvider } from '@material-ui/core';
-import { blue, green } from "@material-ui/core/colors";
+import { blue, green,red } from "@material-ui/core/colors";
 import {ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {AuthWrapper} from "./context";
@@ -19,6 +19,7 @@ function App() {
       palette:{
         primary:blue,
         secondary:green,
+        error:red,
       },
       spacing:4,
     }
