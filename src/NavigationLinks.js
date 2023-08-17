@@ -9,6 +9,8 @@ import {Count} from './Count';
 import {Login} from './Login';
 import {useAuthContext} from './context';
 import {Navigate,Route,Routes} from "react-router-dom";
+import {Category} from './Category';
+import {EditCategory} from './EditCategory';
 
 function NavigationLinks(){
     const userContext=useAuthContext();
@@ -25,6 +27,9 @@ function NavigationLinks(){
           <Route path={RoutePaths.EditBook} element={userContext.userValues.id ?<EditBook/> : <Navigate to={RoutePaths.Login}/> }/>
           <Route path={RoutePaths.AddBook} element={userContext.userValues.id ?<EditBook/> : <Navigate to={RoutePaths.Login}/>} />
           <Route path={RoutePaths.Book} element={userContext.userValues.id ?<Books/> : <Navigate to={RoutePaths.Login}/>} />
+          <Route path={RoutePaths.Category} element={userContext.userValues.id ?<Category/> : <Navigate to={RoutePaths.Login}/>} />
+          <Route path={RoutePaths.EditCategory} element={userContext.userValues.id ?<EditCategory/> : <Navigate to={RoutePaths.Login}/> }/>
+          <Route path={RoutePaths.AddCategory} element={userContext.userValues.id ?<EditCategory/> : <Navigate to={RoutePaths.Login}/> }/>
         </Routes>
       
     );

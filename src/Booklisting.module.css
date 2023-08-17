@@ -3,15 +3,88 @@
     flex-direction: column;
     margin-top: 4vh;
     justify-content: space-between;
-    align-items: center;
+    /* align-items: center; */
 }
 .heading{
     border-bottom: 2px solid #006affad;
+    margin-left: 35vw;
+    margin-right: 35vw;
 }
 .searchLine{
     display: flex;
+    margin-left: 10vw;
+    margin-right: 10vw;
+    align-items: center;
+}
+.totalbooks{
+    font-weight: bolder;
+    font-size: large;
+}
+.serchBox{
+    margin-left: 20vw;
+    width: 30vw;
+}
+.search{
+    width:25vw;
+}
+.sortingField{
     margin-left: 5vw;
-    margin-right: 5vw;
+    width:20vw;
+}
+.sorting{
+    width:18vw;
+}
+.booklist{
+    display: flex;
+    flex-direction: row;
+    margin-left: 10vw;
+    margin-right: 10vw;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    margin-top: 5vh;;
+}
+.Wrapper{
+    width:30vw;
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    border:1px solid rgba(128, 128, 128, 0.491);
+    border-radius: 5px;
+    
+}
+.Image{
+    width:24vw;
+    height:24vw;
+    margin-left: 2vw;
+    margin-top: 1vh;
+}
+.contentWrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-left: 1vw;
+    margin-right: 1vw;
+}
+.description{
+    text-align: left;
+}
+.bookname{
+    font-weight: bolder;
+    font-size: larger;
+}
+
+.btn{
+    display: grid;
+    place-items: center;
+    width:26vw;
+    margin-bottom: 2vh;
+}
+.pagination{
+    margin-top: 2vh;
+    display: grid;
+    place-items: center;
+    width:100vw;
 }

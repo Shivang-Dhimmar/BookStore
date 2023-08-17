@@ -11,65 +11,37 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import Table from "@material-ui/core/Table";
-import {getAllCategory} from './myService/categoryService';
+import {getPagenatedCategory,deleteCategory} from './myService/categoryService';
 import {toast} from "react-toastify";
-import {getPagenatedBookList,deleteBook} from './myService/bookService';
 import { red } from "@material-ui/core/colors";
 import ConfirmationDialog from "./ConfirmationDialog";
 
-function Books(){
+function Category(){
     const navigate=useNavigate();
     const [filters,setFilters]=useState(defaultBookPageFilter);
-    const [categories, setCategories] = useState([]);
-    const [open, setOpen] = useState(false);
-    const [selectedId, setSelectedId] = useState(0);
-    const tableColumns = [
-        { id: "name", label: "Book Name", minWidth: 100 },
-        { id: "price", label: "Price", minWidth: 100 },
-        { id: "category", label: "Category", minWidth: 100 },
-    ];
-
-    const [bookResult, setBookResult] = useState({
+    const [categoriesResult, setCategoriesResult] = useState({
         pageIndex: 0,
-        pageSize: 10,
+        pageSize: 2,
         totalPages: 1,
         items: [],
         totalItems: 0,
     });
-
-    
-
-    const setcategory=async()=>{
-        try{
-            const response=await getAllCategory();
-            if(response.key==="SUCCESS"){
-                setCategories(response.result);
-            }
-            else{
-                toast.error("There is Something Wrong in category fetching.");
-            }
-        }
-        catch(error){
-            toast.error(error);
-        }
-    };
-    useEffect(() => {
-        setcategory();
-    }, []);
+    const [open, setOpen] = useState(false);
+    const [selectedId, setSelectedId] = useState(0);
 
     useEffect(() => {
         const timer = setTimeout(() => {
           if (filters.keyword === "") delete filters.keyword;
-          searchPaginatedBooks({ ...filters });
+          searchPaginatedCategories({ ...filters });
         }, 1000);
         return () => clearTimeout(timer);
     }, [filters]);
 
-    async function searchPaginatedBooks(filters){
+    async function searchPaginatedCategories(filters){
         try{
-            const response=await getPagenatedBookList(filters);
+            const response=await getPagenatedCategory(filters);
             if(response.key==="SUCCESS"){
-                setBookResult(response.result);
+                setCategoriesResult(response.result);
             }
             else{
                 toast.error("There is Something Wrong in fetching paginated list.");
@@ -81,14 +53,14 @@ function Books(){
     }
     const onConfirmDelete = async() => {
         try{
-            const response=await deleteBook(selectedId);
+            const response=await deleteCategory(selectedId);
             if(response.key==="SUCCESS"){
-                toast.success("Book Deleted Successfully.");
+                toast.success("Category Deleted Successfully.");
                 setOpen(false);
                 setFilters({ ...filters, pageIndex: 1 });
             }
             else{
-                toast.error("There is Something wrong while deleting book.");
+                toast.error("There is Something wrong while deleting category.");
                 setOpen(false);
             }
         }
@@ -101,16 +73,16 @@ function Books(){
     return(
         <div className={classes.wrapper}>
             <div className={classes.headingWrapper}>
-                <h1 className={classes.heading}>Book Page</h1>
+                <h1 className={classes.heading}>Category</h1>
             </div>
             <div className={classes.search}>
-                <div className={classes.bookSearch}>
-                    <TextField className={classes.box} variant="outlined" name='bookSerach' placeholder='search...' onChange={(e)=>{
+                <div className={classes.categorySearch}>
+                    <TextField className={classes.box} variant="outlined" name='categorySerach' placeholder='search...' onChange={(e)=>{
                         setFilters({...filters,keyword:e.target.value,pageIndex:1});
                     }}  />
                 </div>
                 <div className={classes.searchButton}>
-                    <Button  className={classes.btn} type='button' color='primary' variant="contained"  size="medium" onClick={()=>navigate(RoutePaths.AddBook)}>Add Book</Button>
+                    <Button  className={classes.btn} type='button' color='primary' variant="contained"  size="medium" onClick={()=>navigate(RoutePaths.AddCategory)}>Add Categiry</Button>
                 </div>
             </div>
             <div className={classes.table}>
@@ -118,46 +90,40 @@ function Books(){
                 <Table aria-label="simple table">
                     <TableHead>
                         <TableRow className={classes.headingRow}>
-                            {tableColumns.map((column) => (
                             <TableCell  className={classes.headingRowData}
-                                key={column.id}
-                                style={{ minWidth: column.minWidth }}
+                                key="name"
+                                style={{ minWidth: 100}}
                             >
-                                {column.label}
+                                Category Name
                             </TableCell>
-                            ))}
                             <TableCell></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                    {bookResult?.items?.map((book, index) => (
-                        <TableRow key={book.id}>
-                            <TableCell>{book.name}</TableCell>
-                            <TableCell>{book.price}</TableCell>
-                            <TableCell>
-                                {categories.find((c) => c.id === book.categoryId)?.name}
-                            </TableCell>
+                    {categoriesResult?.items?.map((category, index) => (
+                        <TableRow key={category.id}>
+                            <TableCell>{category.name}</TableCell>
                             <TableCell>
                                 <Button
                                 type="button"
-                                className={classes.editBook}
+                                className={classes.editCategory}
                                 variant="contained"
                                 color="secondary"
                                 onClick={() => {
-                                    navigate(`/edit-book/${book.id}`);
+                                    navigate(`/edit-category/${category.id}`);
                                 }}
                                 >
                                 Edit
                                 </Button>
                                 <Button
                                 type="button"
-                                className={classes.deleteBook}
+                                className={classes.deleteCategory}
                                 variant="contained"
                                 color="error"
                                 style={{color:red,}}
                                 onClick={() => {
                                     setOpen(true);
-                                    setSelectedId(book.id ?? 0);
+                                    setSelectedId(category.id ?? 0);
                                 }}
                                 >
                                 Delete
@@ -165,11 +131,11 @@ function Books(){
                             </TableCell>
                         </TableRow>
                     ))}
-                    {!bookResult.items.length && (
+                    {!categoriesResult.items.length && (
                         <TableRow className="TableRow">
-                            <TableCell colSpan={5} className={classes.noData}>
+                            <TableCell colSpan={3} className={classes.noData}>
                                 {/* <Typography align="center" className="noDataText"> */}
-                                No Books
+                                No Categories
                                 {/* </Typography> */}
                             </TableCell>
                         </TableRow>
@@ -180,7 +146,7 @@ function Books(){
             <TablePagination
             rowsPerPageOptions={RecordsPerPage}
             component="div"
-            count={bookResult.totalItems}
+            count={categoriesResult.totalItems}
             rowsPerPage={filters.pageSize || 0}
             page={filters.pageIndex - 1}
             onPageChange={(e, newPage) => {
@@ -199,10 +165,10 @@ function Books(){
             open={open}
             onClose={() => setOpen(false)}
             onConfirm={() => onConfirmDelete()}
-            title="Delete book"
-            description="Are you sure you want to delete this book?"
+            title="Delete category"
+            description="Are you sure you want to delete this category?"
             />
         </div>
     );
 }
-export {Books};
+export {Category};

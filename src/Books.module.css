@@ -21,7 +21,7 @@
     align-items: center;
     height:8vh;
 }
-.bookSearch{
+.bookSearch,.categorySearch{
     margin-right: 3vw;
 }
 .box{
@@ -51,6 +51,6 @@
 .noData{
     color: red;
 }
-.deleteBook{
+.deleteBook,.deleteCategory{
     margin-left: 3vw;
 }

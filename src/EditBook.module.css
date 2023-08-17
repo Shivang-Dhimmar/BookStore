@@ -8,6 +8,8 @@
 }
 .heading{
     border-bottom: 3px solid #006affad;
+    margin-left: 30vw;
+    margin-right: 30vw;
 }
 .form{
     display:flex;
@@ -42,6 +44,7 @@
     width: 75vw;
     
 }
+
 .buttonWrapper{
     display:flex;
     flex-direction: row;
@@ -56,4 +59,8 @@
 }
 .cancel{
     margin-left:5vw;
+}
+.categoryname{
+    text-align: left;
+    margin-left: 10vw;
 }
