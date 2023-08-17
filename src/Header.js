@@ -4,20 +4,25 @@ import {NavLink} from "react-router-dom";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import shared from './utils/shared';
-import { useMemo,useState } from 'react';
+import { useMemo,useState,useEffect } from 'react';
 import cartlogo from "./assets/images/cart.png";
 import {global_search} from "./myService/bookService";
 import {Button,TextField} from '@material-ui/core';
 import {toast} from "react-toastify";
 import SearchIcon from "@material-ui/icons/Search";
-import {useAuthContext} from "./context";
 import {RoutePaths} from './utils/enum';
+import {useAuthContext} from './context';
+import {useCartContext} from './Context/CartContext';
 
 function Header(){
+    const authContext = useAuthContext();
+    const cartContext = useCartContext();
     
     const [search,setSearch]=useState("");
     const [booklist,setBooklist]=useState([]);
     const [searchResult,setSearchResult]=useState(false);
+    const [cartList, setCartList] = useState([]);
+
     const userContext=useAuthContext();
     const items=useMemo(()=>{
         return {
@@ -25,6 +30,10 @@ function Header(){
             hasAccess:shared.hasAccess,
         };
     },[]);
+    useEffect(() => {
+        // cartContext.updateCart();
+        setCartList(cartContext.cartData);
+    }, [cartContext.cartData]);
     function change(e){
         setSearch(e.target.value);
     }
@@ -44,6 +53,18 @@ function Header(){
             toast.error("There is something wrong in searching.");
         }
     }
+
+    const addToCart = (book) => {
+        // alert(authContext.userValues);
+        shared.addToCart(book, authContext.userValues.id).then((res) => {
+          if (res.error) {
+            toast.error(res.message);
+          } else {
+            toast.success(res.message);
+            cartContext.updateCart();
+          }
+        }).catch((error)=>{toast.error(error);});
+      };
     
     return(
         <div>
@@ -93,6 +114,7 @@ function Header(){
                     <ListItem button >
                         <NavLink to="/cart" title='cart-link' className={classes.cart}>
                             <img src={cartlogo} alt='cart-logo' className={classes.cartLogo}/>
+                            <p>{cartContext.cartData.length}</p>
                             <p className='cart-text'>Cart</p>
                         </NavLink>
                     </ListItem>
@@ -123,9 +145,14 @@ function Header(){
                                         <div className={classes.rightCol}>
                                             <div>{item1.price}</div>
                                             <div>
-                                                <NavLink to="">
-                                                    Add to Cart
-                                                </NavLink>
+                                                <Button
+                                                    type="button"
+                                                    className={classes.addtoCart}
+                                                    color="primary"
+                                                    onClick={() => addToCart(item1)}
+                                                >
+                                                ADD TO CART
+                                                </Button>
                                             </div>
                                         </div>
                                     </div>

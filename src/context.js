@@ -4,7 +4,7 @@ import {RoutePaths} from './utils/enum';
 import {useNavigate, useLocation} from "react-router-dom";
 
 
-const intialUserValue={
+const initialUserValue={
     id: 0,
     email: "",
     firstName: "",
@@ -15,7 +15,7 @@ const intialUserValue={
 };
 
 const initialUserState={
-    userValues : intialUserValue,
+    userValues : initialUserValue,
     hasLogedIn: false,
     setHasLogedIn:()=>{},
     setUserValues : ()=>{},
@@ -24,7 +24,7 @@ const initialUserState={
 const UserContext=createContext(initialUserState);
 
 export const AuthWrapper=({children})=>{
-    const [userValues, _setUserValues] = useState(intialUserValue);
+    const [userValues, _setUserValues] = useState(initialUserValue);
     const [hasLogedIn, setHasLogedIn] = useState(false);
     const navigate=useNavigate();
     const { pathname } = useLocation();
@@ -36,7 +36,7 @@ export const AuthWrapper=({children})=>{
         // setHasLogedIn(true);
     };
     const signOut = () => {
-        _setUserValues(intialUserValue);
+        _setUserValues(initialUserValue);
         localStorage.removeItem(Shared.LocalStorageKeys.USER);
         navigate(`${RoutePaths.Login}`);
         setHasLogedIn(false);
@@ -45,9 +45,9 @@ export const AuthWrapper=({children})=>{
     //UseEffects
     useEffect(() => {
         const storedUserValue =JSON.parse(localStorage.getItem(Shared.LocalStorageKeys.USER)) ||
-          intialUserValue;
+          initialUserValue;
           // console.log(pathname===RoutePaths.Register);
-          console.log(pathname);
+          // console.log(pathname);
         // if the item doesn't exist, return null
         if (!storedUserValue.id && ((pathname!== RoutePaths.Register) && (pathname!== RoutePaths.Login))) {
           

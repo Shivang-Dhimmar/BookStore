@@ -11,6 +11,7 @@ import {useAuthContext} from './context';
 import {Navigate,Route,Routes} from "react-router-dom";
 import {Category} from './Category';
 import {EditCategory} from './EditCategory';
+import {Cart} from './Cart';
 
 function NavigationLinks(){
     const userContext=useAuthContext();
@@ -30,6 +31,7 @@ function NavigationLinks(){
           <Route path={RoutePaths.Category} element={userContext.userValues.id ?<Category/> : <Navigate to={RoutePaths.Login}/>} />
           <Route path={RoutePaths.EditCategory} element={userContext.userValues.id ?<EditCategory/> : <Navigate to={RoutePaths.Login}/> }/>
           <Route path={RoutePaths.AddCategory} element={userContext.userValues.id ?<EditCategory/> : <Navigate to={RoutePaths.Login}/> }/>
+          <Route path={RoutePaths.Cart} element={userContext.userValues.id ?<Cart/> : <Navigate to={RoutePaths.Login}/> }/>
         </Routes>
       
     );

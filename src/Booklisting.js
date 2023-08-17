@@ -2,13 +2,16 @@ import classes from './Booklisting.module.css';
 import {useEffect,useState} from 'react';
 import {getPagenatedBookList} from './myService/bookService';
 import {toast} from "react-toastify";
-import {useNavigate} from "react-router-dom";
 import {defaultBookPageFilter} from './constants/Constant';
 import { TextField,FormControl,InputLabel,MenuItem,Select,Button } from '@material-ui/core';
 import { Pagination } from "@material-ui/lab";
+import {useAuthContext} from './context';
+import {useCartContext} from './Context/CartContext';
+import shared from './utils/shared';
 
 function Booklisting(){
-    const navigate=useNavigate();
+    const authContext = useAuthContext();
+    const cartContext = useCartContext();
     const [filters,setFilters]=useState(defaultBookPageFilter);
     // const [categories, setCategories] = useState([]);
     const [sortBy, setSortBy] = useState();
@@ -59,6 +62,18 @@ function Booklisting(){
             toast.error(error);
         }
     }
+    const addToCart = (book) => {
+        // alert(authContext.userValues);
+        shared.addToCart(book, authContext.userValues.id).then((res) => {
+          if (res.error) {
+            toast.error(res.message);
+          } else {
+            toast.success(res.message);
+            cartContext.updateCart();
+          }
+        }).catch((error)=>{toast.error(error);});
+      };
+
     const sortBooks = (e) => {
         setSortBy(e.target.value);
         const bookList = [...bookResult.items];
@@ -145,8 +160,7 @@ function Booklisting(){
                         className={classes.addtoCart}
                         variant="contained"
                         color="primary"
-                        onClick={() => {
-                        }}
+                        onClick={() => addToCart(book)}
                     >
                     ADD TO CART
                     </Button>
