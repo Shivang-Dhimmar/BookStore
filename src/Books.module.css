@@ -21,6 +21,9 @@
     align-items: center;
     height:8vh;
 }
+.userSearch{
+    text-align: right;
+}
 .bookSearch,.categorySearch{
     margin-right: 3vw;
 }
@@ -51,6 +54,6 @@
 .noData{
     color: red;
 }
-.deleteBook,.deleteCategory{
+.deleteBook,.deleteCategory,.deleteUser{
     margin-left: 3vw;
 }

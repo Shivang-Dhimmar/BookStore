@@ -12,6 +12,8 @@ import {Navigate,Route,Routes} from "react-router-dom";
 import {Category} from './Category';
 import {EditCategory} from './EditCategory';
 import {Cart} from './Cart';
+import {UpdateUser} from './UpdateUser';
+import {Users} from './Users';
 
 function NavigationLinks(){
     const userContext=useAuthContext();
@@ -32,6 +34,9 @@ function NavigationLinks(){
           <Route path={RoutePaths.EditCategory} element={userContext.userValues.id ?<EditCategory/> : <Navigate to={RoutePaths.Login}/> }/>
           <Route path={RoutePaths.AddCategory} element={userContext.userValues.id ?<EditCategory/> : <Navigate to={RoutePaths.Login}/> }/>
           <Route path={RoutePaths.Cart} element={userContext.userValues.id ?<Cart/> : <Navigate to={RoutePaths.Login}/> }/>
+          {/* <Route path={RoutePaths.EditUser} element={userContext.userValues.id ?<EditUser/> : <Navigate to={RoutePaths.Login}/> }/> */}
+          <Route path={RoutePaths.User} element={userContext.userValues.id ?<Users/> : <Navigate to={RoutePaths.Login}/> }/>
+          <Route path={RoutePaths.UpdateProfile} element={userContext.userValues.id ?<UpdateUser/> : <Navigate to={RoutePaths.Login}/> }/>
         </Routes>
       
     );
