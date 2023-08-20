@@ -8,10 +8,11 @@ import {authService} from './myService/authService';
 import {toast} from "react-toastify";
 import {RoutePaths} from './utils/enum';
 import {useNavigate} from "react-router-dom";
-
+import {useLoaderContext} from "./LoaderContext";
 
 function Register(){
     const navigate=useNavigate();
+    const loaderContext=useLoaderContext();
     const initialValue={
         firstName:"",
         lastName:"",
@@ -33,13 +34,18 @@ function Register(){
         delete data.conpassword;
         try{
             const key=await authService.create(data);
+            loaderContext.setLoader(true);
             console.log(key);
             if(key==="SUCCESS"){
+                toast.success("Registered Successfully");
                 navigate(RoutePaths.Login);
             }
         }
         catch(error){
             toast.error("There is something wrong");
+        }
+        finally{
+            loaderContext.setLoader(false);
         }
         // console.log(res);
         // if(res.key==="SUCCESS"){

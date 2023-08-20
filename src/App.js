@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import {AuthWrapper} from "./context";
 import {NavigationLinks} from './NavigationLinks';
 import {CartWrapper} from './Context/CartContext';
+import {LoaderWrapper} from './LoaderContext';
 
 // import appstyle from "./style";
 function App() {
@@ -31,6 +32,7 @@ function App() {
     <BrowserRouter>
     <AuthWrapper>
     <CartWrapper>
+    <LoaderWrapper>
     <ThemeProvider theme={theme}>                    
     
     <Header/> 
@@ -42,6 +44,7 @@ function App() {
       {/* <TextField id="outlined-basic" label="Name" variant="outlined" classes={appStyle.textboxStyle}/> */}
     <Footer/>
     </ThemeProvider>
+    </LoaderWrapper>
     </CartWrapper>
     </AuthWrapper>
     </BrowserRouter>

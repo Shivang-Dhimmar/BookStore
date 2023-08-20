@@ -22,6 +22,7 @@ function Header(){
     const [booklist,setBooklist]=useState([]);
     const [searchResult,setSearchResult]=useState(false);
     const [cartList, setCartList] = useState([]);
+    const [openSearchResult, setOpenSearchResult] = useState(false);
 
     const userContext=useAuthContext();
     const items=useMemo(()=>{
@@ -48,6 +49,8 @@ function Header(){
                 setBooklist([]);
                 setSearchResult(true);
             }
+            const above=document.getElementById("aboveScreen");
+            above.classList.add(classes.aboveScreenVisible);
         }
         catch(error){
             toast.error("There is something wrong in searching.");
@@ -67,7 +70,9 @@ function Header(){
       };
     
     return(
+        
         <div>
+        
         <div className={classes.headerWrapper}>
             <div className='header-logo-container'>
                 <NavLink to="/" title='linked logo'>
@@ -122,6 +127,14 @@ function Header(){
                 </List>
             </div>
         </div>
+        <div className={classes.aboveScreen} id="aboveScreen" onClick={() => {
+            setSearchResult(false);
+            const above=document.getElementById("aboveScreen");
+            above.classList.remove(classes.aboveScreenVisible);
+
+          }}>
+        </div>
+
         <div className={classes.globalSearchWrapper}>
             <TextField className={classes.search} variant="outlined" name='serach' placeholder='search' onChange={(e)=>change(e)} />
             <Button className={classes.searchButton} startIcon={<SearchIcon/>} color='primary' variant="contained"  size="medium" onClick={globalSearch}>Search</Button>
@@ -138,12 +151,12 @@ function Header(){
                                 <ListItem key={index1}>
                                     <div className={classes.resultSet}>
                                         <div className={classes.leftCol}>
-                                            <div>{item1.name}</div>
+                                            <div className={classes.name}>{item1.name}</div>
                                             <div>{item1.description}</div>
                                             <div>{item1.category}</div>
                                         </div>
                                         <div className={classes.rightCol}>
-                                            <div>{item1.price}</div>
+                                            <div> MRP &#8377;{item1.price}</div>
                                             <div>
                                                 <Button
                                                     type="button"

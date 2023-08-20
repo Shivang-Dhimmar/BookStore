@@ -2,8 +2,8 @@ import {RoutePaths} from './utils/enum';
 import {Booklisting} from './Booklisting';
 import {EditBook} from './EditBook';
 import {Register} from './Register';
-import {Home} from './Home';
-import {Shivang} from './Shivang';
+// import {Home} from './Home';
+// import {Shivang} from './Shivang';
 import {Books} from './Books';
 import {Count} from './Count';
 import {Login} from './Login';
@@ -14,14 +14,15 @@ import {EditCategory} from './EditCategory';
 import {Cart} from './Cart';
 import {UpdateUser} from './UpdateUser';
 import {Users} from './Users';
+import {EditUser} from './EditUser';
 
 function NavigationLinks(){
     const userContext=useAuthContext();
-    const age=20;
+    // const age=20;
     return(
         <Routes>
-          <Route path="/home" element={<Home/>}/>
-          <Route path='/shivang' element={<Shivang age={age}/>}/>
+          {/* <Route path="/home" element={<Home/>}/> */}
+          {/* <Route path='/shivang' element={<Shivang age={age}/>}/> */}
           {/* <Route path='/books' element={<Books/>}/> */}
           <Route path='/count' element={<Count/>}/>
           <Route path={RoutePaths.Register} element={!userContext.userValues.id ?<Register/> : <Navigate to={RoutePaths.BookListing}/> }/>
@@ -34,7 +35,7 @@ function NavigationLinks(){
           <Route path={RoutePaths.EditCategory} element={userContext.userValues.id ?<EditCategory/> : <Navigate to={RoutePaths.Login}/> }/>
           <Route path={RoutePaths.AddCategory} element={userContext.userValues.id ?<EditCategory/> : <Navigate to={RoutePaths.Login}/> }/>
           <Route path={RoutePaths.Cart} element={userContext.userValues.id ?<Cart/> : <Navigate to={RoutePaths.Login}/> }/>
-          {/* <Route path={RoutePaths.EditUser} element={userContext.userValues.id ?<EditUser/> : <Navigate to={RoutePaths.Login}/> }/> */}
+          <Route path={RoutePaths.EditUser} element={userContext.userValues.id ?<EditUser/> : <Navigate to={RoutePaths.Login}/> }/>
           <Route path={RoutePaths.User} element={userContext.userValues.id ?<Users/> : <Navigate to={RoutePaths.Login}/> }/>
           <Route path={RoutePaths.UpdateProfile} element={userContext.userValues.id ?<UpdateUser/> : <Navigate to={RoutePaths.Login}/> }/>
         </Routes>

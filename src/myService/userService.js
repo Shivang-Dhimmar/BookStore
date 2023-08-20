@@ -66,7 +66,7 @@ const deleteUser=async(id)=>{
 const getRolls=async()=>{
     try{
 
-        const response=await fetch("http://localhost:5000/api/user/all/roles",{
+        const response=await fetch("http://localhost:5000/api/user/roles",{
             headers:{
                 "Content-Type":"Application/json",
                 "Accept":"Application/json",

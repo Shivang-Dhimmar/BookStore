@@ -2,6 +2,7 @@ import { createContext,useState,useContext,useEffect } from "react";
 import Shared from "./utils/shared";
 import {RoutePaths} from './utils/enum';
 import {useNavigate, useLocation} from "react-router-dom";
+import {toast} from "react-toastify";
 
 
 const initialUserValue={
@@ -13,7 +14,7 @@ const initialUserValue={
     role: "",
     password: "",
 };
-
+// let count=0;
 const initialUserState={
     userValues : initialUserValue,
     hasLogedIn: false,
@@ -49,7 +50,7 @@ export const AuthWrapper=({children})=>{
           // console.log(pathname===RoutePaths.Register);
           // console.log(pathname);
         // if the item doesn't exist, return null
-        if (!storedUserValue.id && ((pathname!== RoutePaths.Register) && (pathname!== RoutePaths.Login))) {
+        if (!storedUserValue.id && ((pathname!== RoutePaths.Register) && (pathname!== RoutePaths.Login) && (pathname!== RoutePaths.BookListing))) {
           
           navigate(`${RoutePaths.Login}`);
         }
@@ -70,16 +71,21 @@ export const AuthWrapper=({children})=>{
         // else if (((pathname !== RoutePaths.Login) || (pathname !== RoutePaths.Register)) && (!userValues.id)) {
         //   navigate(RoutePaths.Login);
         // }
-        // if (!user.id) {
+        // if (!userValues.id) {
         //   return;
         // }
-        // const access = Shared.hasAccess(pathname, user);
-        // if (!access) {
+
+        // console.log(userValues.id,pathname);
+        // console.log(count);
+        // count=count+1;
+
+        // const access = Shared.hasAccess(pathname, userValues);
+        // if (!access && pathname!==RoutePaths.Cart) {
+        //   console.log(pathname);
         //   toast.warning("Sorry, you are not authorized to access this page");
         //   navigate(RoutePaths.BookListing);
         //   return;
         // }
-        // setAppInitialize(true);
       }, [pathname, userValues]);
         
     let value = {

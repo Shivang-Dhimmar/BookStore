@@ -5,9 +5,8 @@ import { Formik } from "formik";
 import { useState,useEffect} from "react";
 import * as Yup from "yup";
 import shared from './utils/shared';
-import { TextField,Button } from '@material-ui/core';
+import { TextField,Button,FormControl,InputLabel,Select,MenuItem } from '@material-ui/core';
 import {ShowErrorMessage} from './ShowErrorMessage';
-import shared from './utils/shared';
 import {updateUser,getRolls,getUserByID} from './myService/userService';
 import {toast} from "react-toastify";
 import {RoutePaths} from './utils/enum';
@@ -15,10 +14,10 @@ import {useAuthContext} from './context';
 
 
 function EditUser(){
-    
+    const userContext=useAuthContext();
     const navigate=useNavigate();
     const [roles, setRoles] = useState([]);
-    const [user, setUser] = useState();
+    const [user, setUser] = useState({});
     const initialValues = {
         id: 0,
         email: "",
@@ -33,6 +32,7 @@ function EditUser(){
         email: Yup.string().email("Invalid email address format").required("Email is required"),
         firstName: Yup.string().required("First Name is required"),
         lastName: Yup.string().required("Last Name is required"),
+        roleId: Yup.number().required("Role is required"),
     });
 
 
@@ -179,44 +179,37 @@ function EditUser(){
                         click={touched.email}
                     />
                   </div>
-                
+                  {values.id !== userContext.userValues.id && (
                   <div className="new password">
-                    <TextField
-                        id="new password"
-                        name="newPassword"
-                        label="New Password"
-                        className={classes.fields}
+                    <FormControl
+                        className="dropdown-wrapper"
                         variant="outlined"
-                        value={values.newPassword}
-                        onChange={(e) => {
-                            e.target.value !== ""
-                            ? setUpdatePassword(true)
-                            : setUpdatePassword(false);
-                            handleChange(e);
-                        }}
-                        onBlur={handleBlur}
-                    />
+                        disabled={values.id === userContext.userValues.id}
+                      >
+                        <InputLabel htmlFor="select">Roles</InputLabel>
+                        <Select
+                          name="roleId"
+                          id={"roleId"}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          className={classes.fields}
+                          disabled={values.id === userContext.userValues.id}
+                          value={values.roleId}
+                        >
+                          {roles.length > 0 &&
+                            roles.map((role) => (
+                              <MenuItem value={role.id} key={"name" + role.id}>
+                                {role.name}
+                              </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
                     <ShowErrorMessage
-                        error={errors.newPassword}
-                        click={touched.newPassword}
+                        error={errors.roleId}
+                        click={touched.roleId}
                     />
                   </div>
-                </div>
-                <div className={classes.confirmPassword}>
-                    <TextField
-                      id="confirm password"
-                      name="confirmPassword"
-                      label="Confirm Password"
-                      className={classes.fields}
-                      variant="outlined"
-                      value={values.confirmPassword}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                    />
-                  <ShowErrorMessage
-                        error={errors.confirmPassword}
-                        click={touched.confirmPassword}
-                  />
+                  )}
                 </div>
               <div className={classes.buttonWrapper}>
                 <Button
