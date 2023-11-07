@@ -13,7 +13,7 @@ const placeOrder=async(req)=>{
         return response2;
     }
     catch(error){
-        toast.error(error);
+        toast.error(error,{theme:"colored"});
     }
 }
 

@@ -46,11 +46,11 @@ function Books(){
                 setCategories(response.result);
             }
             else{
-                toast.error("There is Something Wrong in category fetching.");
+                toast.error("There is Something Wrong in category fetching.",{theme:"colored"});
             }
         }
         catch(error){
-            toast.error(error);
+            toast.error(error,{theme:"colored"});
         }
     };
     useEffect(() => {
@@ -72,32 +72,32 @@ function Books(){
                 setBookResult(response.result);
             }
             else{
-                toast.error("There is Something Wrong in fetching paginated list.");
+                toast.error("There is Something Wrong in fetching paginated list.",{theme:"colored"});
             }
         }
         catch(error){
-            toast.error(error);
+            toast.error(error,{theme:"colored"});
         }
     }
     const onConfirmDelete = async() => {
         try{
             const response=await deleteBook(selectedId);
             if(response.key==="SUCCESS"){
-                toast.success("Book Deleted Successfully.");
+                toast.success("Book Deleted Successfully.",{theme:"colored"});
                 setOpen(false);
                 setFilters({ ...filters, pageIndex: 1 });
             }
             else{
-                toast.error("There is Something wrong while deleting book.");
+                toast.error("There is Something wrong while deleting book.",{theme:"colored"});
                 setOpen(false);
             }
         }
         catch(error){
-            toast.error(error);
+            toast.error(error,{theme:"colored"});
             setOpen(false);
         } 
       };
-    
+      const redColor = "#ff0000";
     return(
         <div className={classes.wrapper}>
             <div className={classes.headingWrapper}>
@@ -142,6 +142,7 @@ function Books(){
                                 type="button"
                                 className={classes.editBook}
                                 variant="contained"
+                                style={{ marginRight:'4vw'}}
                                 color="secondary"
                                 onClick={() => {
                                     navigate(`/edit-book/${book.id}`);
@@ -154,7 +155,7 @@ function Books(){
                                 className={classes.deleteBook}
                                 variant="contained"
                                 color="error"
-                                style={{color:red,}}
+                                style={{ backgroundColor: redColor,color:'white'}}
                                 onClick={() => {
                                     setOpen(true);
                                     setSelectedId(book.id ?? 0);

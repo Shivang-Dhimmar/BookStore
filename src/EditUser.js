@@ -14,6 +14,7 @@ import {useAuthContext} from './context';
 
 
 function EditUser(){
+  const redColor = "#ff0000";
     const userContext=useAuthContext();
     const navigate=useNavigate();
     const [roles, setRoles] = useState([]);
@@ -68,11 +69,11 @@ function EditUser(){
                 setUser(res.result);
             }
             else{
-                toast.error("There is something wrong");
+                toast.error("There is something wrong",{theme:"colored"});
             }
         }
         catch(error){
-            toast.error(error);
+            toast.error(error,{theme:"colored"});
         }
       };
 
@@ -82,12 +83,12 @@ function EditUser(){
             if(res.key==="SUCCESS"){
                 setRoles(res.result);
             }else{
-                toast.error("There is Something Wrong");
+                toast.error("There is Something Wrong",{theme:"colored"});
             }
 
         }
         catch(error){
-            toast.error(error);
+            toast.error(error,{theme:"colored"});
         }
     }
     const onSubmit = (values) => {
@@ -98,11 +99,11 @@ function EditUser(){
         updateUser(updatedValue)
           .then((res) => {
             if (res.key==="SUCCESS") {
-              toast.success(shared.messages.UPDATED_SUCCESS);
+              toast.success(shared.messages.UPDATED_SUCCESS,{theme:"colored"});
               navigate(RoutePaths.User);
             }
           })
-          .catch((e) => toast.error(shared.messages.UPDATED_FAIL));
+          .catch((e) => toast.error(shared.messages.UPDATED_FAIL,{theme:"colored"}));
       };
     
     
@@ -216,6 +217,7 @@ function EditUser(){
                   className={classes.save}
                   variant="contained"
                   type="submit"
+                  style={{ marginRight:'4vw'}}
                   color="secondary"
                   // disableElevation
                 >
@@ -225,7 +227,7 @@ function EditUser(){
                   className={classes.cancel}
                   variant="contained"
                   type="button"
-                  color="error"
+                  style={{ backgroundColor: redColor,color:'white'}}
                   // disableElevation
                   onClick={() => {
                     navigate(RoutePaths.User);

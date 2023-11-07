@@ -17,18 +17,18 @@ const create=async(req)=>{
         // console.log(status);
         // console.log(data);
         if(data.key==="SUCCESS"){
-            toast.success("Registered Successfully");
+            toast.success("Registered Successfully",{theme:"colored"});
             return data.key;
         }
         else if(data.code===409){
-            toast.error("User Already Exists");
+            toast.error("User Already Exists",{theme:"colored"});
         }
         else{
-            toast.error("There is something wrong");
+            toast.error("There is something wrong",{theme:"colored"});
         }
     }
     catch(error){
-        toast.error(error);
+        toast.error(error,{theme:"colored"});
     }
     
 }
@@ -56,7 +56,7 @@ const login=async(req)=>{
         return data2;
     }
     catch(error){
-        toast.error(error);
+        toast.error(error,{theme:"colored"});
     }
 }
 

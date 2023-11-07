@@ -14,7 +14,7 @@ const updateUser=async(req)=>{
         return response2;
     }
     catch(error){
-        toast.error(error);
+        toast.error(error,{theme:"colored"});
     }
 }
 
@@ -39,7 +39,7 @@ const getPagenatedUsers=async(filter)=>{
         return response;
     }
     catch(e){
-        toast.error(e);
+        toast.error(e,{theme:"colored"});
     }
 }
 
@@ -58,7 +58,7 @@ const deleteUser=async(id)=>{
         return response2;
     }
     catch(error){
-        toast.error(error);
+        toast.error(error,{theme:"colored"});
     }
 }
 
@@ -76,7 +76,7 @@ const getRolls=async()=>{
         return response2;
     }
     catch(error){
-        toast.error(error);
+        toast.error(error,{theme:"colored"});
     }
 }
 
@@ -93,7 +93,7 @@ const getUserByID=async(id)=>{
         return response2;
     }
     catch(error){
-        toast.error(error);
+        toast.error(error,{theme:"colored"});
     }
 }
 

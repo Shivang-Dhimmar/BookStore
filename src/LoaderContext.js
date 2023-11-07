@@ -17,14 +17,11 @@ export const LoaderWrapper=({children})=>{
 
     
     useEffect(() => {
-        if(needLoader===true){
+        if(needLoader){
             alert(true);
-            <Loader visible={true}/>
+            <Loader/>
         }
-        else{
-          alert(false);
-          <Loader visible={false}/>
-        }
+        
     }, [needLoader]);
 
         

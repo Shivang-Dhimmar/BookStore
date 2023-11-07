@@ -17,6 +17,7 @@ import { red } from "@material-ui/core/colors";
 import ConfirmationDialog from "./ConfirmationDialog";
 
 function Category(){
+    const redColor = "#ff0000";
     const navigate=useNavigate();
     const [filters,setFilters]=useState(defaultBookPageFilter);
     const [categoriesResult, setCategoriesResult] = useState({
@@ -44,28 +45,28 @@ function Category(){
                 setCategoriesResult(response.result);
             }
             else{
-                toast.error("There is Something Wrong in fetching paginated list.");
+                toast.error("There is Something Wrong in fetching paginated list.",{theme:"colored"});
             }
         }
         catch(error){
-            toast.error(error);
+            toast.error(error,{theme:"colored"});
         }
     }
     const onConfirmDelete = async() => {
         try{
             const response=await deleteCategory(selectedId);
             if(response.key==="SUCCESS"){
-                toast.success("Category Deleted Successfully.");
+                toast.success("Category Deleted Successfully.",{theme:"colored"});
                 setOpen(false);
                 setFilters({ ...filters, pageIndex: 1 });
             }
             else{
-                toast.error("There is Something wrong while deleting category.");
+                toast.error("There is Something wrong while deleting category.",{theme:"colored"});
                 setOpen(false);
             }
         }
         catch(error){
-            toast.error(error);
+            toast.error(error,{theme:"colored"});
             setOpen(false);
         } 
       };
@@ -92,7 +93,7 @@ function Category(){
                         <TableRow className={classes.headingRow}>
                             <TableCell  className={classes.headingRowData}
                                 key="name"
-                                style={{ minWidth: 100}}
+                                style={{ minWidth: 300}}
                             >
                                 Category Name
                             </TableCell>
@@ -108,6 +109,7 @@ function Category(){
                                 type="button"
                                 className={classes.editCategory}
                                 variant="contained"
+                                style={{ marginLeft:'4vw',marginRight:'4vw'}}
                                 color="secondary"
                                 onClick={() => {
                                     navigate(`/edit-category/${category.id}`);
@@ -120,7 +122,7 @@ function Category(){
                                 className={classes.deleteCategory}
                                 variant="contained"
                                 color="error"
-                                style={{color:red,}}
+                                style={{ backgroundColor: redColor,color:'white'}}
                                 onClick={() => {
                                     setOpen(true);
                                     setSelectedId(category.id ?? 0);

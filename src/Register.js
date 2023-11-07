@@ -35,14 +35,15 @@ function Register(){
         try{
             const key=await authService.create(data);
             loaderContext.setLoader(true);
+            console.log("loader",loaderContext.needLoader);
             console.log(key);
             if(key==="SUCCESS"){
-                toast.success("Registered Successfully");
+                toast.success("Registered Successfully",{theme:"colored"});
                 navigate(RoutePaths.Login);
             }
         }
         catch(error){
-            toast.error("There is something wrong");
+            toast.error("There is something wrong",{theme:"colored"});
         }
         finally{
             loaderContext.setLoader(false);

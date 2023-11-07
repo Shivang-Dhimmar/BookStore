@@ -21,7 +21,7 @@ const global_search=async(req)=>{
         
     }
     catch(error){
-        toast.error(error);
+        toast.error(error,{theme:"colored"});
     }   
 }
 
@@ -47,7 +47,7 @@ const getPagenatedBookList=async(filter)=>{
         return response;
     }
     catch(e){
-        toast.error(e);
+        toast.error(e,{theme:"colored"});
     }
 }
 
@@ -65,7 +65,7 @@ const addBook=async(req)=>{
         return response2;
     }
     catch(error){
-        toast.error(error);
+        toast.error(error,{theme:"colored"});
     }
 }
 const updateBook=async(req)=>{
@@ -82,7 +82,7 @@ const updateBook=async(req)=>{
         return response2;
     }
     catch(error){
-        toast.error(error);
+        toast.error(error,{theme:"colored"});
     }
 }
 const getBookByID=async(id)=>{
@@ -98,7 +98,7 @@ const getBookByID=async(id)=>{
         return response2;
     }
     catch(error){
-        toast.error(error);
+        toast.error(error,{theme:"colored"});
     }
 }
 const deleteBook=async(id)=>{
@@ -115,7 +115,7 @@ const deleteBook=async(id)=>{
         return response2;
     }
     catch(error){
-        toast.error(error);
+        toast.error(error,{theme:"colored"});
     }
 }
 

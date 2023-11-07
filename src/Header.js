@@ -53,7 +53,7 @@ function Header(){
             above.classList.add(classes.aboveScreenVisible);
         }
         catch(error){
-            toast.error("There is something wrong in searching.");
+            toast.error("There is something wrong in searching.",{theme:"colored"});
         }
     }
 
@@ -61,12 +61,12 @@ function Header(){
         // alert(authContext.userValues);
         shared.addToCart(book, authContext.userValues.id).then((res) => {
           if (res.error) {
-            toast.error(res.message);
+            toast.error(res.message,{theme:"colored"});
           } else {
-            toast.success(res.message);
+            toast.success(res.message,{theme:"colored"});
             cartContext.updateCart();
           }
-        }).catch((error)=>{toast.error(error);});
+        }).catch((error)=>{toast.error(error,{theme:"colored"});});
       };
     
     return(

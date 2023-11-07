@@ -55,23 +55,23 @@ function Booklisting(){
                 setBookResult(response.result);
             }
             else{
-                toast.error("There is Something Wrong in fetching paginated list.");
+                toast.error("There is Something Wrong in fetching paginated list.",{theme:"colored"});
             }
         }
         catch(error){
-            toast.error(error);
+            toast.error(error,{theme:"colored"});
         }
     }
     const addToCart = (book) => {
         // alert(authContext.userValues);
         shared.addToCart(book, authContext.userValues.id).then((res) => {
           if (res.error) {
-            toast.error(res.message);
+            toast.error(res.message,{theme:"colored"});
           } else {
-            toast.success(res.message);
+            toast.success(res.message,{theme:"colored"});
             cartContext.updateCart();
           }
-        }).catch((error)=>{toast.error(error);});
+        }).catch((error)=>{toast.error(error,{theme:"colored"});});
       };
 
     const sortBooks = (e) => {

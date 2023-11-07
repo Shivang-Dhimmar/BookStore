@@ -11,6 +11,7 @@ import {addBook,getBookByID,updateBook} from './myService/bookService';
 import {toast} from "react-toastify";
 import {RoutePaths} from './utils/enum';
 function EditBook(){
+  const redColor = "#ff0000";
     const initialValues = {
         name: "",
         price: 0,
@@ -37,11 +38,11 @@ function EditBook(){
           setCategories(response.result);
         }
         else{
-          toast.error("There is Something wrong");
+          toast.error("There is Something wrong",{theme:"colored"});
         }
       }
       catch(error){
-        toast.error(error);
+        toast.error(error,{theme:"colored"});
       }
 
     };
@@ -65,7 +66,7 @@ function EditBook(){
         });
       }
       catch(error){
-        toast.error(error);
+        toast.error(error,{theme:"colored"});
       }
     };
     const onSelectFile = (e, setFieldValue, setFieldError) => {
@@ -76,7 +77,7 @@ function EditBook(){
         const extension = fileNameArray.pop();
         if (["png", "jpg", "jpeg"].includes(extension?.toLowerCase())) {
           if (selectedFile.size > 200000) {
-            toast.error("File size must be less then 200KB");
+            toast.error("File size must be less then 200KB",{theme:"colored"});
             return;
           }
 
@@ -90,7 +91,7 @@ function EditBook(){
             throw error;
           };
         } else {
-          toast.error("only jpg,jpeg and png files are allowed");
+          toast.error("only jpg,jpeg and png files are allowed",{theme:"colored"});
         }
       } else {
         setFieldValue("base64image", "");
@@ -102,32 +103,32 @@ function EditBook(){
 
           const response=await addBook(values);
           if(response.key==="SUCCESS"){
-            toast.success("Book added Successfully.");
+            toast.success("Book added Successfully.",{theme:"colored"});
             navigate(RoutePaths.Book);
           }
           else if(response.code===400){
-            toast.error("Bad Request");
+            toast.error("Bad Request",{theme:"colored"});
           }
           else{
-            toast.error("Threre is something wrong");
+            toast.error("Threre is something wrong",{theme:"colored"});
           }
         }
         else{
           const response=await updateBook(values);
           if(response.key==="SUCCESS"){
-            toast.success("Book updated Successfully.");
+            toast.success("Book updated Successfully.",{theme:"colored"});
             navigate(RoutePaths.Book);
           }
           else if(response.code===400){
-            toast.error("Bad Request");
+            toast.error("Bad Request",{theme:"colored"});
           }
           else{
-            toast.error("Threre is something wrong");
+            toast.error("Threre is something wrong",{theme:"colored"});
           }
         }
       }
       catch(error){
-        toast.error(error);
+        toast.error(error,{theme:"colored"});
       }    
     };
 
@@ -286,6 +287,7 @@ function EditBook(){
                   className={classes.save}
                   variant="contained"
                   type="submit"
+                  style={{ marginRight:'4vw'}}
                   color="secondary"
                   // disableElevation
                 >
@@ -295,7 +297,7 @@ function EditBook(){
                   className={classes.cancel}
                   variant="contained"
                   type="button"
-                  color="error"
+                  style={{ backgroundColor: redColor,color:'white'}}
                   // disableElevation
                   onClick={() => {
                     navigate(RoutePaths.Book);

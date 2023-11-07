@@ -19,7 +19,7 @@ function Login(){
     const navigate=useNavigate();
     const validationSchema=Yup.object().shape({
         email:Yup.string().required('Email is required').email("Enter valid email"),
-        password:Yup.string().required("Password is required").min(5,"password must be atleast 5 character long").max(12,"password must be atmost 12 charactes long"),
+        password:Yup.string().required("Password is required"),
     })
     const userContext=useAuthContext();
 
@@ -27,7 +27,7 @@ function Login(){
         try{
             const response=await authService.login(data);
             if(response.key==="SUCCESS"){
-                toast.success("Logedin Successfully");
+                toast.success("Logedin Successfully",{theme:"colored"});
                 delete response.result._id;
                 delete response.result.__v;
                 userContext.setUser(response.result);
@@ -36,15 +36,15 @@ function Login(){
                 // alert(userContext.userValues.id);
             }
             else if(response.key==="UNAUTHORIZED"){
-                toast.error("Wrong Credentials");
+                toast.error("Wrong Credentials",{theme:"colored"});
             }
             else{
-                toast.error("There is Something Wronng");
+                toast.error("There is Something Wronng",{theme:"colored"});
             }
             
         }
         catch(error){
-            toast.error(error);
+            toast.error(error,{theme:"colored"});
         };  
     };
     

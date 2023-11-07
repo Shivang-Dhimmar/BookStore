@@ -22,7 +22,7 @@ export const colors = {
   
 export const defaultBookPageFilter = {
     pageIndex: 1,
-    pageSize: 2,
+    pageSize: 6,
     keyword: "",
 };
   

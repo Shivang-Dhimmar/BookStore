@@ -40,7 +40,7 @@ const Cart=()=>{
         const currentCount = cartItem.quantity;
         const quantity = inc ? currentCount + 1 : currentCount - 1;
         if (quantity === 0) {
-          toast.error("Item quantity should not be zero. You can remove item Instead.");
+          toast.error("Item quantity should not be zero. You can remove item Instead.",{theme:"colored"});
           return;
         }
     
@@ -52,7 +52,7 @@ const Cart=()=>{
             quantity,
           });
           if (res.key==="SUCCESS") {
-            toast.success("Item Updated Successfully.");
+            toast.success("Item Updated Successfully.",{theme:"colored"});
             const updatedCartList = cartList.map((item) =>
               item.id === cartItem.id ? { ...item, quantity } : item
             );
@@ -65,10 +65,10 @@ const Cart=()=>{
             setTotalPrice(updatedPrice);
           }
           else{
-            toast.error("There is something wrong");
+            toast.error("There is something wrong",{theme:"colored"});
           }
         } catch (error) {
-          toast.error(error);
+          toast.error(error,{theme:"colored"});
         }
       };
 
@@ -79,10 +79,10 @@ const Cart=()=>{
             cartContext.updateCart();
           }
           else{
-            toast.error("There is Something wrong");
+            toast.error("There is Something wrong",{theme:"colored"});
           }
         } catch (error) {
-          toast.error(error);
+          toast.error(error,{theme:"colored"});
         }
       };
 
@@ -101,26 +101,26 @@ const Cart=()=>{
                             };
                             const res = await placeOrder(newOrder);
                             if (res.key==="SUCCESS") {
-                                toast.success("Order Placed Successfully");
+                                toast.success("Order Placed Successfully",{theme:"colored"});
                                 cartContext.updateCart();
                                 navigate("/");
                                 
                             }
                             else{
-                                toast.error("There is Something Wrong");
+                                toast.error("There is Something Wrong",{theme:"colored"});
                             }
                         }
                         else {
-                            toast.error("Your cart is empty");
+                            toast.error("Your cart is empty",{theme:"colored"});
                         }
                     }
                     else{
-                        toast.error("There is something wrong");
+                        toast.error("There is something wrong",{theme:"colored"});
                     }
                 } 
             }
             catch (error) {
-              toast.error(`Order cannot be placed ${error}`);
+              toast.error(`Order cannot be placed ${error}`,{theme:"colored"});
             }  
       };
 

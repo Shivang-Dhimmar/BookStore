@@ -13,7 +13,7 @@ const getAllCategory=async()=>{
         return response2;
     }
     catch(error){
-        toast.error(error);
+        toast.error(error,{theme:"colored"});
     }
     
 };
@@ -39,7 +39,7 @@ const getPagenatedCategory=async(filter)=>{
         return response;
     }
     catch(e){
-        toast.error(e);
+        toast.error(e,{theme:"colored"});
     }
 }
 
@@ -57,7 +57,7 @@ const deleteCategory=async(id)=>{
         return response2;
     }
     catch(error){
-        toast.error(error);
+        toast.error(error,{theme:"colored"});
     }
 }
 const getCategoryByID=async(id)=>{
@@ -73,7 +73,7 @@ const getCategoryByID=async(id)=>{
         return response2;
     }
     catch(error){
-        toast.error(error);
+        toast.error(error,{theme:"colored"});
     }
 }
 
@@ -91,7 +91,7 @@ const AddCategory=async(req)=>{
         return response2;
     }
     catch(error){
-        toast.error(error);
+        toast.error(error,{theme:"colored"});
     }
 }
 
@@ -109,7 +109,7 @@ const updateCategory=async(req)=>{
         return response2;
     }
     catch(error){
-        toast.error(error);
+        toast.error(error,{theme:"colored"});
     }
 }
 

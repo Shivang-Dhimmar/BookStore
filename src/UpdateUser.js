@@ -13,6 +13,7 @@ import {RoutePaths} from './utils/enum';
 import {useAuthContext} from './context';
 
 function UpdateUser(){
+  const redColor = "#ff0000";
     const userContext=useAuthContext();
     const userValue=userContext.userValues;
     const navigate=useNavigate();
@@ -45,18 +46,18 @@ function UpdateUser(){
             const res = await updateUser(data);
             if (res.key==="SUCCESS") {
                 userContext.setUser(res);
-                toast.success(shared.messages.UPDATED_SUCCESS);
+                toast.success(shared.messages.UPDATED_SUCCESS,{theme:"colored"});
                 navigate("/");
             }
             else if(res.code===403){
-                toast.error("You can't update admin credential.");
+                toast.error("You can't update admin credential.",{theme:"colored"});
             }
             else{
-                toast.error("There is Something wrong");
+                toast.error("There is Something wrong",{theme:"colored"});
             }
         }
         catch(error){
-            toast.error(error);
+            toast.error(error,{theme:"colored"});
         }
       };
     
@@ -178,6 +179,7 @@ function UpdateUser(){
                   className={classes.save}
                   variant="contained"
                   type="submit"
+                  style={{ marginRight:'4vw'}}
                   color="secondary"
                   // disableElevation
                 >
@@ -187,7 +189,7 @@ function UpdateUser(){
                   className={classes.cancel}
                   variant="contained"
                   type="button"
-                  color="error"
+                  style={{ backgroundColor: redColor,color:'white'}}
                   // disableElevation
                   onClick={() => {
                     navigate(RoutePaths.User);

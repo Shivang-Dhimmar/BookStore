@@ -17,6 +17,7 @@ import ConfirmationDialog from "./ConfirmationDialog";
 import {useAuthContext} from './context';
 
 function Users(){
+    const redColor = "#ff0000";
     const navigate=useNavigate();
     const userContext=useAuthContext();
     const [filters,setFilters]=useState(defaultBookPageFilter);
@@ -61,28 +62,28 @@ function Users(){
                 setUserResult(response.result);
             }
             else{
-                toast.error("There is Something Wrong in fetching paginated list.");
+                toast.error("There is Something Wrong in fetching paginated list.",{theme:"colored"});
             }
         }
         catch(error){
-            toast.error(error);
+            toast.error(error,{theme:"colored"});
         }
     }
     const onConfirmDelete = async() => {
         try{
             const response=await deleteUser(selectedId);
             if(response.key==="SUCCESS"){
-                toast.success("User Deleted Successfully.");
+                toast.success("User Deleted Successfully.",{theme:"colored"});
                 setOpen(false);
                 setFilters({ ...filters, pageIndex: 1 });
             }
             else{
-                toast.error("There is Something wrong while deleting book.");
+                toast.error("There is Something wrong while deleting book.",{theme:"colored"});
                 setOpen(false);
             }
         }
         catch(error){
-            toast.error(error);
+            toast.error(error,{theme:"colored"});
             setOpen(false);
         } 
       };
@@ -128,6 +129,7 @@ function Users(){
                                 className={classes.editUser}
                                 variant="contained"
                                 color="secondary"
+                                style={{ marginRight:'4vw'}}
                                 onClick={() => {
                                     navigate(`/edit-user/${user.id}`);
                                 }}
@@ -139,7 +141,7 @@ function Users(){
                                         type="button"
                                         className={classes.deleteUser}
                                         variant="contained"
-                                        color="error"
+                                        style={{ backgroundColor: redColor,color:'white'}}
                                         onClick={() => {
                                             setOpen(true);
                                             setSelectedId(user.id ?? 0);

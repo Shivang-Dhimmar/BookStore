@@ -9,6 +9,7 @@ import {getCategoryByID,AddCategory,updateCategory} from './myService/categorySe
 import {toast} from "react-toastify";
 import {RoutePaths} from './utils/enum';
 function EditCategory(){
+  const redColor = "#ff0000";
     const initialValues = {
         name: "",
     };
@@ -37,11 +38,11 @@ function EditCategory(){
             });
         }
         else{
-            toast.error("There is Somethng wrong while fetching category details.")
+            toast.error("There is Somethng wrong while fetching category details.",{theme:"colored"})
         }
     }
       catch(error){
-        toast.error(error);
+        toast.error(error,{theme:"colored"});
       }
     };
     
@@ -51,32 +52,32 @@ function EditCategory(){
 
           const response=await AddCategory(values);
           if(response.key==="SUCCESS"){
-            toast.success("Category added Successfully.");
+            toast.success("Category added Successfully.",{theme:"colored"});
             navigate(RoutePaths.Category);
           }
           else if(response.code===400){
-            toast.error("Bad Request");
+            toast.error("Bad Request",{theme:"colored"});
           }
           else{
-            toast.error("Threre is something wrong");
+            toast.error("Threre is something wrong",{theme:"colored"});
           }
         }
         else{
           const response=await updateCategory(values);
           if(response.key==="SUCCESS"){
-            toast.success("Category updated Successfully.");
+            toast.success("Category updated Successfully.",{theme:"colored"});
             navigate(RoutePaths.Category);
           }
           else if(response.code===400){
-            toast.error("Bad Request");
+            toast.error("Bad Request",{theme:"colored"});
           }
           else{
-            toast.error("Threre is something wrong");
+            toast.error("Threre is something wrong",{theme:"colored"});
           }
         }
       }
       catch(error){
-        toast.error(error);
+        toast.error(error,{theme:"colored"});
       }    
     };
 
@@ -120,6 +121,7 @@ function EditCategory(){
                   className={classes.save}
                   variant="contained"
                   type="submit"
+                  style={{ marginRight:'4vw'}}
                   color="secondary"
                   // disableElevation
                 >
@@ -129,7 +131,7 @@ function EditCategory(){
                   className={classes.cancel}
                   variant="contained"
                   type="button"
-                  color="error"
+                  style={{ backgroundColor: redColor,color:'white'}}
                   // disableElevation
                   onClick={() => {
                     navigate(RoutePaths.Category);

@@ -13,7 +13,7 @@ const getCart=async(id)=>{
         return response2;
     }
     catch(error){
-        toast.error(error);
+        toast.error(error,{theme:"colored"});
     }
 }
 
@@ -33,7 +33,7 @@ const addItem=async(req)=>{
         return response2;
     }
     catch(error){
-        toast.error(error);
+        toast.error(error,{theme:"colored"});
     }
 }
 
@@ -51,7 +51,7 @@ const updateItem=async(req)=>{
         return response2;
     }
     catch(error){
-        toast.error(error);
+        toast.error(error,{theme:"colored"});
     }
 }
 
@@ -68,7 +68,7 @@ const deleteItem=async(id)=>{
         return response2;
     }
     catch(error){
-        toast.error(error);
+        toast.error(error,{theme:"colored"});
     }
 }
 
